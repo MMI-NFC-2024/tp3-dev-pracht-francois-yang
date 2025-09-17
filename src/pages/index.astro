@@ -1,0 +1,12 @@
+---
+import PlotFigure from "../components/PlotFigure.astro";
+import Layout from "../layouts/Layout.astro";
+import * as Plot from "@observablehq/plot";
+import penguins from "../assets/penguins.json";
+---
+
+<Layout>
+  <h1 class="text-2xl">Les pages iframes</h1>
+  <a href="/test-iframe" class="text-blue-500 underline">Voir les manchots en iframe</a>
+  <a href="/ancres" class="text-blue-500 underline ml-4">Voir les manchots avec des ancres</a>
+</Layout>

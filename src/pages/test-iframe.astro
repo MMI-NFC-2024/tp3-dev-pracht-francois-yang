@@ -1,0 +1,41 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout>
+  <h1 class="text-2xl">Test iframe</h1>
+  <a href ="/" class="text-blue-500 underline">Retour à l'accueil</a>
+  <p>Choisir une espèce de manchot :</p>
+ <select id="species">
+<option value="Adelie">Adelie</option>
+<option value="Chinstrap">Chinstrap</option>
+<option value="Gentoo">Gentoo</option>
+</select>
+<script>
+document.querySelector("#species")?.addEventListener("change", (evt) => {
+const value = (evt.target as HTMLSelectElement).value;
+location.pathname = "/species/" + value;
+});
+</script>
+  <iframe
+    name="iframeMain"
+    id="iframeMain"
+    src="/species/Adelie"
+    style="height: 510px;"
+    class="w-full border-2 border-black mb-4"
+    title="Iframe principale"
+    onload="frame(this)"
+  ></iframe>
+  <script>
+    function frame(iframe: HTMLIFrameElement) {
+      try {
+        if (iframe.contentWindow.document.body) {
+          iframe.style.height = iframe.contentWindow.document.body.scrollHeight + 'px';
+        }
+      } catch (e) {
+        // Cross-origin protection
+        iframe.style.height = '510px';
+      }
+    }
+  </script>
+</Layout>

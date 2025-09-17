@@ -1,0 +1,61 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PlotFigure from "../components/PlotFigure.astro";
+import * as Plot from "@observablehq/plot";
+import penguins from "../assets/penguins.json";
+
+---
+<Layout>
+	<h1 class="text-2xl mb-4">Slider de graphiques Penguins</h1>
+  <a href ="/" class="text-blue-500 underline">Retour à l'accueil</a>
+  <p>Choisir une espèce de manchot :</p>
+<select id="species">
+<option value="Adelie">Adelie</option>
+<option value="Chinstrap">Chinstrap</option>
+<option value="Gentoo">Gentoo</option>
+</select>
+<script>
+document.querySelector("#species")?.addEventListener("change", (evt) => {
+const value = (evt.target as HTMLSelectElement).value;
+location.pathname = "/species/" + value;
+});
+</script>
+	<div class="slider flex overflow-x-auto gap-8 pb-8" style="scroll-behavior:smooth;">
+		<section id="graph-adelie" class="min-w-[400px] flex-shrink-0">
+			<h2 class="text-xl mb-2">Adelie</h2>
+            <PlotFigure options={{marks: [
+        Plot.dot(penguins.filter(({species})=>species==="Adelie"), {
+          x: "culmen_length_mm",
+          y: "culmen_depth_mm",
+          stroke: "species",
+        }),
+      ],
+    }}
+  />
+		</section>
+		<section id="graph-chinstrap" class="min-w-[400px] flex-shrink-0">
+			<h2 class="text-xl mb-2">Chinstrap</h2>
+			<PlotFigure options={{marks: [
+        Plot.dot(penguins.filter(({species})=>species==="Chinstrap"), {
+          x: "culmen_length_mm",
+          y: "culmen_depth_mm",
+          stroke: "species",
+        }),
+      ],
+    }}
+  />
+		</section>
+		<section id="graph-gentoo" class="min-w-[400px] flex-shrink-0">
+			<h2 class="text-xl mb-2">Gentoo</h2>
+			<PlotFigure options={{marks: [
+        Plot.dot(penguins.filter(({species})=>species==="Gentoo"), {
+          x: "culmen_length_mm",
+          y: "culmen_depth_mm",
+          stroke: "species",
+        }),
+      ],
+    }}
+  />
+		</section>
+	</div>
+</Layout>
