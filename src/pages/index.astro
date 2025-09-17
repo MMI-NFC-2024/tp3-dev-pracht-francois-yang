@@ -7,6 +7,34 @@ import penguins from "../assets/penguins.json";
 
 <Layout>
   <h1 class="text-2xl">Les pages iframes</h1>
-  <a href="/test-iframe" class="text-blue-500 underline">Voir les manchots en iframe</a>
-  <a href="/ancres" class="text-blue-500 underline ml-4">Voir les manchots avec des ancres</a>
+  <select id="menu" class="border p-2 rounded">
+    <option value="">-- Choisir un mode --</option>
+    <option value="iframe">Voir les manchots en iframe</option>
+    <option value="ancre">Voir les manchots avec des ancres</option>
+    <option value="tabs">Voir les manchots en onglets</option>
+  </select>
+  <script>
+    const selectMenu = document.querySelector("#menu") as HTMLSelectElement;
+    if (selectMenu) {
+      if (window.location.pathname.includes("test-iframe")) {
+        selectMenu.value = "iframe";
+      } else if (window.location.pathname.includes("ancres")) {
+        selectMenu.value = "ancre";
+      } else if (window.location.pathname.includes("tabs")) {
+        selectMenu.value = "tabs";
+      } else {
+        selectMenu.value = "";
+      }
+      selectMenu.addEventListener("change", () => {
+        const value = selectMenu.value;
+        if (value === "iframe") {
+          window.location.pathname = "/test-iframe";
+        } else if (value === "ancre") {
+          window.location.pathname = "/ancres";
+        } else if (value === "tabs") {
+          window.location.pathname = "/tabs";
+        }
+      });
+    }
+  </script>
 </Layout>
